@@ -17,3 +17,15 @@ export function getCoursesBySlug(slug) {
     })
     .catch(handleError);
 }
+
+export function saveCourse(course) {
+  return fetch(baseUrl + (course.id || ""), {
+    method: course.id ? "PUT" : "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      ...course,
+      //parse author id
+      authorId: parseInt(course.authorId, 10)
+    })
+  });
+}
